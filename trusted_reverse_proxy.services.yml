@@ -1,6 +1,6 @@
 services:
   http_middleware.trusted_reverse_proxy:
     arguments: ['@settings']
-    class: Drupal\trusted_reverse_proxy\StackMiddleware\ReverseProxyMiddleware
+    class: Drupal\trusted_reverse_proxy\StackMiddleware\TrustedReverseProxyMiddleware
     tags:
       - { name: http_middleware, priority: 301 }

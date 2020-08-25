@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  * Massages the Settings to provide sensible defaults for cloud-native
  * installations.
  */
-class ReverseProxyMiddleware implements HttpKernelInterface {
+class TrustedReverseProxyMiddleware implements HttpKernelInterface {
 
   /**
    * The decorated kernel.
@@ -43,7 +43,7 @@ class ReverseProxyMiddleware implements HttpKernelInterface {
       // The reverse proxy is acting appropriately and sending a forwarded IP
       && $request->headers->has('x-forwarded-for')
       // We are in a context where PHP can tell us the first hop.
-      && isset($_SERVER['REMOTE_ADDR'])
+      && $request->server->has('REMOTE_ADDR')
     ) {
       // The settings constructor re-sets the singleton.
       new Settings([
@@ -63,7 +63,7 @@ class ReverseProxyMiddleware implements HttpKernelInterface {
    */
   protected function detectReverseProxies(Request $request): array {
     // First hop is assumed to be a reverse proxy in its own right.
-    $proxies = [$_SERVER['REMOTE_ADDR']];
+    $proxies = [$request->server->get('REMOTE_ADDR')];
     // We may be further behind another reverse proxy (e.g., Traefik, Varnish)
     // Commas may or may not be followed by a space.
     // @see https://tools.ietf.org/html/rfc7239#section-7.1
