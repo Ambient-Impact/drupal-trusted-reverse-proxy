@@ -15,8 +15,9 @@ function trusted_reverse_proxy_preprocess_status_report_page(&$variables) {
     $variables['requirements']['#requirements']['trusted_host_patterns']['severity'] = $severity['severity'];
     $variables['requirements']['#requirements']['trusted_host_patterns']['description'] = new TranslatableMarkup(
       'The trusted_host_patterns setting is not configured in <code>settings.php</code>.<br />'
-      . '<strong>A trusted reverse proxy has been configured</strong> and thus not having trusted host patterns set is not necessarily a security risk. <br />'
-      . '<a href="https://www.drupal.org/docs/8/install/trusted-host-settings">Read more about this setting</a> and disable the <code>trusted_reverse_proxy</code> module if you are not behind a trusted proxy.'
+      . '<strong>The Trusted Reverse Proxy module is installed and will trust reverse proxies it detects</strong> (or those explicitly configured). Therefore, not having trusted host patterns set is not necessarily a security risk <em>if you trust your upstream network path</em>.<br />'
+      . '<a href="https://www.drupal.org/docs/8/install/trusted-host-settings">Read more about this setting</a> and disable the <code>trusted_reverse_proxy</code> module if you are not behind a trusted proxy or this message is unfamiliar to you.<br />'
+      . 'Reverse proxies such as CloudFlare that perform backend requests over the public Internet should be configured to use "authenticated origin pulls" to ensure integrity of the <code>x-forwarded-for</code> header this site receives.'
     );
   }
 }
