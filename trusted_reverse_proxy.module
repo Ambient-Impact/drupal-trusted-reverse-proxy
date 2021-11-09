@@ -7,6 +7,11 @@ use Drupal\system\Element\StatusReportPage;
  * Implements hook_preprocess_HOOK().
  */
 function trusted_reverse_proxy_preprocess_status_report_page(&$variables) {
+  // Make sure this is the Status report page.
+  if (\Drupal::routeMatch()->getRouteName() !== 'system.status') {
+    return;
+  }
+
   $container = \Drupal::getContainer();
   $severity = $container->getParameter('trusted_reverse_proxy');
   $originalSeverity = $variables['requirements']['#requirements']['trusted_host_patterns']['severity'];
