@@ -21,5 +21,5 @@ Things to consider:
 
 * Does your first-hop reverse proxy rewrite `x-forwarded-for` instead of passing through any headers received from the
   client request?
-* Do your remaining hops on a private network, or otherwise restrict communication from only trusted reverse proxies?
+* Are your remaining hops on a private network, or otherwise restrict communication from only trusted reverse proxies?
 * Do you understand HTTP mechanics sufficiently to understand the implications of implementing this module?
