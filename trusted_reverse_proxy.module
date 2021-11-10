@@ -24,6 +24,10 @@ function trusted_reverse_proxy_preprocess_status_report_page(&$variables) {
   $originalSeverity = $variables['requirements']['#requirements']['trusted_host_patterns']['severity'];
   if ($originalSeverity !== $severity['severity']) {
     $variables['requirements']['#requirements']['trusted_host_patterns']['severity'] = $severity['severity'];
+    // Mock an element for rendering to retrieve the counters.
+    // The code generating the status page operates without meaningful value
+    // objects and no real hooks to manipulate the values at this stage.
+    // @see https://www.drupal.org/project/drupal/issues/309040
     $fakeElement = [
       '#requirements' => $variables['requirements']['#requirements'],
     ];
