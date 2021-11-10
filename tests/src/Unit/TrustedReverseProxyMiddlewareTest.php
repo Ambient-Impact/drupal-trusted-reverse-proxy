@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\Tests\trusted_reverse_proxy\Unit;
 
@@ -17,11 +19,15 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
 
   /**
+   * HTTP Kernel.
+   *
    * @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject
    */
   protected $mockHttpKernel;
 
   /**
+   * Reverse Proxy middleware.
+   *
    * @var \Drupal\Core\StackMiddleware\ReverseProxyMiddleware|\PHPUnit\Framework\MockObject\MockObject
    */
   protected $mockReverseProxyMiddleware;
@@ -38,6 +44,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
    * Return a well-formed reverse proxied request.
    *
    * @return \Symfony\Component\HttpFoundation\Request
+   *   The request.
    */
   protected function getWellFormedReverseProxyRequest(): Request {
     $request = new Request();
@@ -98,7 +105,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
   /**
    * Test we properly set a reverse proxy config with only a single hop.
    */
-  public function testMultipleReverseProxiesByXFFDetection() {
+  public function testMultipleReverseProxiesByXffDetection() {
     $storage = [];
     $settings = new Settings($storage);
     $middleware = new TrustedReverseProxyMiddleware($this->mockHttpKernel, $settings);

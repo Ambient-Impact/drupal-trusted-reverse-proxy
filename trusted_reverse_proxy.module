@@ -1,4 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+/**
+ * @file
+ * Hooks and other functional code for Trusted Reverse Proxy module.
+ */
+
+declare(strict_types=1);
 
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\system\Element\StatusReportPage;
@@ -27,10 +34,10 @@ function trusted_reverse_proxy_preprocess_status_report_page(&$variables) {
   $reverseProxyConfigured = $settings->get('reverse_proxy', FALSE) && count($settings->get('reverse_proxy_addresses', []));
   if ($reverseProxyConfigured && !empty($variables['requirements']['#requirements']['trusted_host_patterns']) && $variables['requirements']['#requirements']['trusted_host_patterns']['severity'] === REQUIREMENT_ERROR) {
     $variables['requirements']['#requirements']['trusted_host_patterns']['description'] = new TranslatableMarkup(
-      'The trusted_host_patterns setting is not configured in <code>settings.php</code>.<br />'
-      . '<strong>The Trusted Reverse Proxy module is installed and will trust reverse proxies it detects</strong> (or those explicitly configured). Therefore, not having trusted host patterns set is not necessarily a security risk <em>if you trust your upstream network path</em>.<br />'
-      . '<a href="https://www.drupal.org/docs/8/install/trusted-host-settings">Read more about this setting</a> and disable the <code>trusted_reverse_proxy</code> module if you are not behind a trusted proxy or this message is unfamiliar to you.<br />'
-      . 'Reverse proxies such as CloudFlare that perform backend requests over the public Internet should be configured to use "authenticated origin pulls" to ensure integrity of the <code>x-forwarded-for</code> header this site receives.'
+      'The trusted_host_patterns setting is not configured in <code>settings.php</code>.<br />
+      <strong>The Trusted Reverse Proxy module is installed and will trust reverse proxies it detects</strong> (or those explicitly configured). Therefore, not having trusted host patterns set is not necessarily a security risk <em>if you trust your upstream network path</em>.<br />
+      <a href="https://www.drupal.org/docs/8/install/trusted-host-settings">Read more about this setting</a> and disable the <code>trusted_reverse_proxy</code> module if you are not behind a trusted proxy or this message is unfamiliar to you.<br />
+      Reverse proxies such as CloudFlare that perform backend requests over the public Internet should be configured to use "authenticated origin pulls" to ensure integrity of the <code>x-forwarded-for</code> header this site receives.'
     );
   }
 }

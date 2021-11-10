@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\trusted_reverse_proxy\StackMiddleware;
 
@@ -7,8 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
- * Massages the Settings to provide sensible defaults for cloud-native
- * installations.
+ * Massages the Settings to provide sensible defaults for cloud-native.
  */
 class TrustedReverseProxyMiddleware implements HttpKernelInterface {
 
@@ -26,6 +27,14 @@ class TrustedReverseProxyMiddleware implements HttpKernelInterface {
    */
   protected $settings;
 
+  /**
+   * Constructor.
+   *
+   * @param \Symfony\Component\HttpKernel\HttpKernelInterface $http_kernel
+   *   HTTP Kernel.
+   * @param \Drupal\Core\Site\Settings $settings
+   *   Settings.
+   */
   public function __construct(HttpKernelInterface $http_kernel, Settings $settings) {
     $this->httpKernel = $http_kernel;
     $this->settings = $settings;
@@ -38,9 +47,9 @@ class TrustedReverseProxyMiddleware implements HttpKernelInterface {
     if (
       // Reverse proxy is not explicitly disabled (is unset/NULL otherwise)
       $this->settings->get('reverse_proxy') !== FALSE
-      // No explicit addresses configured
+      // No explicit addresses configured.
       && count($this->settings->get('reverse_proxy_addresses', [])) === 0
-      // The reverse proxy is acting appropriately and sending a forwarded IP
+      // The reverse proxy is acting appropriately and sending a forwarded IP.
       && $request->headers->has('x-forwarded-for')
       // We are in a context where PHP can tell us the first hop.
       && $request->server->has('REMOTE_ADDR')
@@ -58,8 +67,10 @@ class TrustedReverseProxyMiddleware implements HttpKernelInterface {
    * Detect reverse proxies from an x-forwarded-for header.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request.
    *
    * @return array
+   *   The detected reverse proxies.
    */
   protected function detectReverseProxies(Request $request): array {
     // First hop is assumed to be a reverse proxy in its own right.
