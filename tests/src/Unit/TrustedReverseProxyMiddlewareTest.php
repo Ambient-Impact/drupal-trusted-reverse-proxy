@@ -35,7 +35,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     $this->mockHttpKernel = $this->createMock(HttpKernelInterface::class);
     $this->mockReverseProxyMiddleware = $this->createMock(ReverseProxyMiddleware::class);
   }
@@ -62,7 +62,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
     $middleware = new TrustedReverseProxyMiddleware($this->mockHttpKernel, $settings);
     $middleware->handle(new Request());
     // Assert we have not added any settings.
-    $this->assertArrayEquals($storage, $settings->getAll());
+    $this->assertEquals($storage, $settings->getAll());
   }
 
   /**
@@ -77,7 +77,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
     $middleware = new TrustedReverseProxyMiddleware($this->mockHttpKernel, $settings);
     $middleware->handle($this->getWellFormedReverseProxyRequest());
     // Assert we have not added any settings.
-    $this->assertArrayEquals($storage, $settings->getAll());
+    $this->assertEquals($storage, $settings->getAll());
   }
 
   /**
@@ -89,7 +89,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
     $middleware = new TrustedReverseProxyMiddleware($this->mockHttpKernel, $settings);
     $request = $this->getWellFormedReverseProxyRequest();
     $middleware->handle($request);
-    $this->assertArrayEquals(
+    $this->assertEquals(
       [
         'reverse_proxy' => TRUE,
         // Should contain only the first hop.
@@ -115,7 +115,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
       $request->headers->get('x-forwarded-for') . ', 192.0.2.2'
     );
     $middleware->handle($request);
-    $this->assertArrayEquals(
+    $this->assertEquals(
       [
         'reverse_proxy' => TRUE,
         'reverse_proxy_addresses' => ['192.0.2.2', '192.0.2.1'],
