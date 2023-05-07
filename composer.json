@@ -1,0 +1,9 @@
+{
+  "name": "drupal/trusted_reverse_proxy",
+  "description": "Provides sensible defaults for sites running behind known trusted reverse proxies.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "requires": {
+    "drupal/core": "^9 || ^10"
+  }
+}
