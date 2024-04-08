@@ -1,4 +1,4 @@
 name: Trusted Reverse Proxy Support
 type: module
 description: 'Provides sensible defaults for sites running behind known trusted reverse proxies.'
-core_version_requirement: ^9
+core_version_requirement: ^9 || ^10
