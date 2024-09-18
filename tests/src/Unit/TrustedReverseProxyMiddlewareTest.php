@@ -36,6 +36,7 @@ class TrustedReverseProxyMiddlewareTest extends UnitTestCase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    parent::setUp();
     $this->mockHttpKernel = $this->createMock(HttpKernelInterface::class);
     $this->mockReverseProxyMiddleware = $this->createMock(ReverseProxyMiddleware::class);
   }
