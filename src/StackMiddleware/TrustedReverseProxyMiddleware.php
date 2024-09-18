@@ -44,7 +44,7 @@ class TrustedReverseProxyMiddleware implements HttpKernelInterface {
   /**
    * {@inheritDoc}
    */
-  public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = TRUE): Response {
+  public function handle(Request $request, $type = self::MAIN_REQUEST, $catch = TRUE): Response {
     if (
       // Reverse proxy is not explicitly disabled (is unset/NULL otherwise)
       $this->settings->get('reverse_proxy') !== FALSE
