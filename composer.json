@@ -4,6 +4,6 @@
   "type": "drupal-module",
   "license": "GPL-2.0-or-later",
   "requires": {
-    "drupal/core": "^9 || ^10"
+    "drupal/core": "^10.1 || ^11"
   }
 }
